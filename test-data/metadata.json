@@ -1,0 +1,50 @@
+{
+  "BKTest-ASCII.ttf": {
+    "weight": 400,
+    "fsType": 0,
+    "cmapCount": 95,
+    "flavor": null
+  },
+  "BKTest-BitmapOnly.ttf": {
+    "weight": 400,
+    "fsType": 512,
+    "cmapCount": 34,
+    "flavor": null
+  },
+  "BKTest-Bold.ttf": {
+    "weight": 700,
+    "fsType": 0,
+    "cmapCount": 34,
+    "flavor": null
+  },
+  "BKTest-NoSubsetting.ttf": {
+    "weight": 400,
+    "fsType": 256,
+    "cmapCount": 34,
+    "flavor": null
+  },
+  "BKTest-Regular.ttf": {
+    "weight": 400,
+    "fsType": 0,
+    "cmapCount": 34,
+    "flavor": null
+  },
+  "BKTest-Regular.woff": {
+    "weight": 400,
+    "fsType": 0,
+    "cmapCount": 34,
+    "flavor": "woff"
+  },
+  "BKTest-Regular.woff2": {
+    "weight": 400,
+    "fsType": 0,
+    "cmapCount": 34,
+    "flavor": "woff2"
+  },
+  "BKTest-Restricted.ttf": {
+    "weight": 400,
+    "fsType": 2,
+    "cmapCount": 34,
+    "flavor": null
+  }
+}
