@@ -35,6 +35,7 @@ If an app uses `components/webrtc-qr-pairing.html`, treat the paired browser as 
 
 Applications created from this template may parse untrusted local files. Implementations should:
 
+- Treat filenames as untrusted text. Use DOM text/attribute assignment or HTML escaping for display and accessible labels; preserve legitimate characters rather than interpreting names as markup.
 - Validate type, size, and structure before expensive processing.
 - Avoid unbounded allocation or recursion.
 - Handle malformed data without exposing stack traces to users.

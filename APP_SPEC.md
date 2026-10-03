@@ -160,6 +160,7 @@ The font-subset operation itself must stay HarfBuzz-based. Coverage parsing must
 - Smartphone: Fonts / Characters / Output bottom navigation.
 - Coverage does not rely on color alone; counts and concrete code points are present.
 - Long missing-character lists are scrollable and copyable.
+- Source filenames remain literal text in visible labels, tooltips, and accessible names, including quotes, ampersands, angle brackets, and Unicode.
 - Long license text is collapsed by default.
 - Result preview stacks vertically on small screens and never forces horizontal scrolling.
 - Preview controls state clearly that browser fallback may appear for characters not included in the generated WOFF2.

@@ -2,6 +2,12 @@
 
 All notable changes to Font Subsetter / フォント軽量化 are documented here.
 
+## [Unreleased]
+
+### Fixed
+- Escape source filenames in output checkbox accessible labels so quotes and markup characters remain literal without changing legitimate filenames.
+- Add a browser regression for punctuation filenames across both standalone variants, languages, and desktop/mobile output selection.
+
 ## [1.0.0] - 2026-09-16
 
 ### Stable release
