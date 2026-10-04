@@ -2,6 +2,14 @@
 
 All notable changes to Font Subsetter / フォント軽量化 are documented here.
 
+## [Unreleased]
+
+### Fixed
+- Permit embedded WASM in the self-extract loader CSP so local font generation/export works; retain `connect-src 'none'` and disallow general `unsafe-eval`.
+- Add a real two-font generation/export regression for both local HTML variants, including browser reload of downloaded WOFF2 bytes.
+- Escape source filenames in output checkbox accessible labels so quotes and markup characters remain literal without changing legitimate filenames.
+- Add a browser regression for punctuation filenames across both standalone variants, languages, and desktop/mobile output selection.
+
 ## [1.0.0] - 2026-09-16
 
 ### Stable release
