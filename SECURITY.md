@@ -25,6 +25,7 @@ The default template is a static browser application with no backend. Its primar
 - Committed `dependencies.lock.json` tarball SHA-256 values verified before embedding.
 - SHA-256 records in the generated dependency manifest.
 - No analytics, telemetry, remote fonts, or silent update checks.
+- Both the readable page and self-extract loader permit embedded WASM compilation with `wasm-unsafe-eval`, never general `unsafe-eval`. The loader policy remains effective after restoring the app, so it must permit the embedded font worker while keeping `connect-src 'none'`.
 - User-initiated downloads rather than automatic uploads.
 
 A generated HTML file is executable code. Distribute it through a trusted channel and verify hashes for high-trust workflows.

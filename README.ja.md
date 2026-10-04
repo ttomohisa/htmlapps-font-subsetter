@@ -133,7 +133,7 @@ font-subset.zip
 
 生成済みHTMLは直接編集せず、`src/index.template.html`、`app.config.json`、vendor元データを変更して再ビルドしてください。
 
-### ファイル名の回帰テスト
+### ブラウザ回帰テスト
 
 再ビルド後、既存のNode.js用Playwrightテスト環境で `node tests/release_filename_safety.cjs` を実行します。テスト環境がリポジトリ外にある場合は、その `node_modules` ディレクトリを `NODE_PATH` に指定します。Windowsでインストール済みMicrosoft Edgeを使う例:
 
@@ -141,7 +141,10 @@ font-subset.zip
 $env:NODE_PATH = 'C:\path\to\test-runtime\node_modules'
 $env:PLAYWRIGHT_BROWSER_CHANNEL = 'msedge'
 node tests/release_filename_safety.cjs
+node tests/release_font_export.cjs
 ```
+
+フォント出力の回帰テストは両方のローカル版で2書体を生成し、保存したWOFF2を `FontFace` で再読み込みして、実行時通信ゼロでZIPを出力します。
 
 ブラウザ指定を省略するとPlaywrightのChromiumを使います。通常版と自己展開版をローカルで開き、記号を含むファイル名の表示・選択、日本語/英語、デスクトップ/スマートフォン、実行時通信ゼロを確認します。
 

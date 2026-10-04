@@ -133,7 +133,7 @@ The builder:
 
 Do not edit generated HTML directly. Change `src/index.template.html`, `app.config.json`, or the vendored source assets, then rebuild.
 
-### Filename regression
+### Browser regressions
 
 After rebuilding, run `node tests/release_filename_safety.cjs` with an existing Node.js Playwright test runtime. If that runtime is outside the repository, set `NODE_PATH` to its `node_modules` directory. To use installed Microsoft Edge on Windows:
 
@@ -141,7 +141,10 @@ After rebuilding, run `node tests/release_filename_safety.cjs` with an existing 
 $env:NODE_PATH = 'C:\path\to\test-runtime\node_modules'
 $env:PLAYWRIGHT_BROWSER_CHANNEL = 'msedge'
 node tests/release_filename_safety.cjs
+node tests/release_font_export.cjs
 ```
+
+The font export regression generates two fonts in each local variant, reloads downloaded WOFF2 bytes with `FontFace`, and exports a ZIP with zero runtime network requests.
 
 Without a channel override, the test uses Playwright's Chromium. It opens both generated files locally and checks literal punctuation filenames, output selection, Japanese/English, desktop/mobile, and zero runtime network requests.
 
