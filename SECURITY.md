@@ -27,6 +27,7 @@ The default template is a static browser application with no backend. Its primar
 - No analytics, telemetry, remote fonts, or silent update checks.
 - Both the readable page and self-extract loader permit embedded WASM compilation with `wasm-unsafe-eval`, never general `unsafe-eval`. The loader policy remains effective after restoring the app, so it must permit the embedded font worker while keeping `connect-src 'none'`.
 - User-initiated downloads rather than automatic uploads.
+- The coverage report is copied to the local clipboard only on an explicit click. It includes font filenames, counts/status, and at most 500 missing Unicode labels per font, with control characters escaped. It excludes font bytes and source text, adds no storage or network path, and should be reviewed before the user shares clipboard contents.
 
 A generated HTML file is executable code. Distribute it through a trusted channel and verify hashes for high-trust workflows.
 

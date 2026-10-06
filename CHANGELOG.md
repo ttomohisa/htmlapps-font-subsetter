@@ -4,7 +4,13 @@ All notable changes to Font Subsetter / フォント軽量化 are documented her
 
 ## [Unreleased]
 
+### Added
+- Add an explicit bilingual Copy coverage report action with fresh per-font counts, unknown/failed states, safe quoted filenames, and up to 500 missing Unicode labels per font with explicit truncation. No font bytes/source text, automatic copying, persistence, or ZIP additions.
+- Add source/standalone regression tests and deterministic synthetic format-12 fonts for coverage, Unicode order, report bounds, state changes, and clipboard failure handling.
+
 ### Fixed
+- Treat format-12 mappings to glyph 0 (`.notdef`) as missing in coverage, CSS unicode-range, and manifest counts while keeping later nonzero mappings in the same group.
+- Report clipboard failure truthfully when the fallback copy operation is unavailable, denied, or returns false; restore focus after fallback copying.
 - Permit embedded WASM in the self-extract loader CSP so local font generation/export works; retain `connect-src 'none'` and disallow general `unsafe-eval`.
 - Add a real two-font generation/export regression for both local HTML variants, including browser reload of downloaded WOFF2 bytes.
 - Escape source filenames in output checkbox accessible labels so quotes and markup characters remain literal without changing legitimate filenames.

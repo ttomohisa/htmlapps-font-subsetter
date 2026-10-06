@@ -20,6 +20,7 @@ GitHub Pages delivers the initial HTML. After it loads, font inspection, charact
 
 - **Collect the characters your site really uses** — Enter text directly, select Japanese presets, or add local TXT / MD / CSV / JSON / YAML / HTML / CSS / JS / TS / XML / SVG files.
 - **See missing characters before export** — Coverage is checked from each font's `cmap`, with concrete missing characters and Unicode code points instead of relying on browser fallback rendering.
+- **Copy a coverage report** — Keep a bounded plain-text snapshot of requested characters and each font’s status, supported/missing counts, and up to 500 missing Unicode labels. Unreadable coverage remains unknown.
 - **Review font restrictions before subsetting** — Inspect OS/2 `fsType` and available license metadata. No Subsetting and Bitmap Embedding Only fonts are blocked; Restricted License fonts require an explicit rights/permission acknowledgement.
 - **Subset multiple fonts together** — Process Regular / Bold / Italic and other TTF / OTF files with one shared character set while editing family, weight, style, and output filename per font.
 - **Keep Variable Fonts variable** — CFF2 / `fvar`-based Variable Fonts remain variable during supported subsetting workflows.
@@ -71,6 +72,10 @@ The built-in Japanese presets include printable ASCII, common Japanese symbols, 
 ### Coverage and font restrictions
 
 Coverage is read from the font's `cmap`, not from rendered fallback text. Missing characters are shown as the character plus `U+XXXX` / `U+XXXXXX`.
+
+Choose **Copy coverage report** in Font coverage to copy the current snapshot. The report keeps complete counts, marks any truncation after 500 missing Unicode labels per font, and quotes filenames safely. It does not contain the original font bytes or source text, is not saved automatically, and is not added to the ZIP. The separate **Copy missing characters** action still copies the entire missing set.
+
+The report button is unavailable until characters and fonts are present and inspection has finished. Clipboard access depends on the browser; a failed copy is reported without changing your work. Review clipboard contents before sharing. Coverage is based on Unicode code points and nonzero cmap glyph mappings; it is not a shaping or license guarantee.
 
 `fsType` is treated as a technical flag stored in the font, not as an automatic legal determination that webfont use is permitted. Check the font's license / EULA as well.
 
@@ -147,6 +152,10 @@ node tests/release_font_export.cjs
 The font export regression generates two fonts in each local variant, reloads downloaded WOFF2 bytes with `FontFace`, and exports a ZIP with zero runtime network requests.
 
 Without a channel override, the test uses Playwright's Chromium. It opens both generated files locally and checks literal punctuation filenames, output selection, Japanese/English, desktop/mobile, and zero runtime network requests.
+
+### Coverage regression tests
+
+With Node.js 18 or newer, run `node --test tests/coverage-report.test.cjs`. To run the same tests against a generated variant, set `FONT_COVERAGE_HTML` to its path. These tests execute the actual source functions with deterministic synthetic rectangle fonts; they do not replace the existing browser export and filename regressions. Optional fixture regeneration uses `python tests/fixtures/make_synthetic_font.py` with FontTools. Neither Node.js nor FontTools is required to run the app or its standard build.
 
 ## Privacy and runtime network protection
 
