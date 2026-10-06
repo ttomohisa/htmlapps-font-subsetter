@@ -72,6 +72,17 @@ Missing characters warn but do not block generation. HarfBuzz receives the reque
 
 The UI may cap the number of rendered missing-character chips for performance, but the full missing set remains available for copy.
 
+### Coverage report
+
+- **Copy coverage report / 文字対応レポートをコピー** explicitly copies a fresh plain-text snapshot of the current direct text, presets, ready sources, and loaded fonts.
+- Include the requested code-point count, each font's quoted filename and status, supported/missing counts, and at most the first **500 missing Unicode labels per font**, in existing first-occurrence order. Keep full counts and explicitly identify truncation; do not include a raw character dump.
+- WOFF2/unreadable cmap coverage remains **unknown**; font load errors are **failed**, with unknown supported/missing counts. Do not interpret unavailable coverage as zero missing or fully supported.
+- Disable the action with no fonts, no requested code points, while any font/source is being inspected, and while that clipboard write is pending. Repeated clicks recompute the snapshot; copying must not invalidate results, change input/selection, or start generation.
+- Quote filenames and escape control characters, line separators, and bidi controls so a filename cannot introduce report fields. Include no font bytes, source contents, full paths, license text, storage, or ZIP entry.
+- The report describes cmap code-point coverage, not shaping, grapheme support, or licensing. Keep combining marks, variation selectors, supplementary characters, and whitespace code points unchanged.
+- Show clipboard success only after a successful write; fallback copy must return true. Otherwise show a localized failure and preserve input and keyboard focus.
+- Format-12 support uses `startGlyphID + cp - startCharCode != 0`: only the zero mapping is missing, not later valid mappings in the same group. Package CSS ranges and manifest counts use the same corrected coverage path.
+
 ## 6. `fsType` / license behavior
 
 `fsType` is a technical field in the OS/2 table. It is **not** treated as an automatic legal decision about webfont use.
