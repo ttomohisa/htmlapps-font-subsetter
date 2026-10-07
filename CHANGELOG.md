@@ -16,6 +16,16 @@ All notable changes to Font Subsetter / フォント軽量化 are documented her
 - Escape source filenames in output checkbox accessible labels so quotes and markup characters remain literal without changing legitimate filenames.
 - Add a browser regression for punctuation filenames across both standalone variants, languages, and desktop/mobile output selection.
 
+## [1.0.1] - 2026-10-06
+
+### Fixed
+- Standardize the header language action as EN / JA and match its tooltip to the localized accessible name.
+- Keep the existing responsive layout, canonical vx.x.x version badge, and fully local processing copy; bump the app patch version once.
+
+### Tests
+- Add runtime regressions for both languages, repeated toggles, persisted-language reload, denied storage, and both standalone artifacts.
+- Validate current release metadata in the existing stable-release checks.
+
 ## [1.0.0] - 2026-09-16
 
 ### Stable release

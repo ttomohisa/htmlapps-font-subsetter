@@ -44,7 +44,9 @@ sha=hashlib.sha256(idx.read_bytes()).hexdigest()
 meta=re.search(r'<meta name="self-extract-source-sha256" content="([a-f0-9]{64})">',setext)
 check('self-extract source SHA matches', meta and meta.group(1)==sha, sha)
 # Version manifest
-check('dist version badge 1.0.0', 'id="versionBadge">v1.0.0<' in html)
+config=json.loads((ROOT/'app.config.json').read_text(encoding='utf-8'))
+version=config['version']
+check('dist version badge matches config', f'id="versionBadge">v{version}<' in html)
 report=json.loads((ROOT/'dist/build-size-report.json').read_text(encoding='utf-8')) if (ROOT/'dist/build-size-report.json').exists() else {}
 check('build-size report readable bytes current', report.get('readableHtmlBytes')==idx.stat().st_size, str(report.get('readableHtmlBytes')))
 check('build-size report self-extract bytes current', report.get('selfExtractHtmlBytes')==se.stat().st_size, str(report.get('selfExtractHtmlBytes')))
