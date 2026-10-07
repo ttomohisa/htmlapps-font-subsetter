@@ -18,6 +18,8 @@ GitHub Pages delivers the initial HTML. After it loads, font inspection, charact
 
 ## Features
 
+The header language button shows its target (`EN` / `JA`) with a localized accessible name and tooltip. The version is displayed as `v1.0.1`, and the privacy badge reads “Fully local processing”.
+
 - **Collect the characters your site really uses** — Enter text directly, select Japanese presets, or add local TXT / MD / CSV / JSON / YAML / HTML / CSS / JS / TS / XML / SVG files.
 - **See missing characters before export** — Coverage is checked from each font's `cmap`, with concrete missing characters and Unicode code points instead of relying on browser fallback rendering.
 - **Copy a coverage report** — Keep a bounded plain-text snapshot of requested characters and each font’s status, supported/missing counts, and up to 500 missing Unicode labels. Unreadable coverage remains unknown.
@@ -108,6 +110,8 @@ Each push to `main` rebuilds the standalone HTML, verifies repository/build cons
 
 ## Development and build layout
 
+Run `node scripts/check-header-regression.mjs` with Node.js to exercise the real app script for language detection, repeated toggles, saved-language reload, denied storage, version, and local-processing copy. Pass `dist/index.html` or `dist/index.self-extract.html` to check generated artifacts too. This source-level DOM-boundary test does not replace browser layout checks.
+
 ```text
 .
 ├─ src/index.template.html       # Application source template
@@ -172,14 +176,14 @@ The GitHub Pages version still requires the initial HTML request. After the page
 
 ## Limitations
 
-- TTF / OTF are the supported generation sources in v1.0.0. WOFF can be inspected but is not used as a generation source.
+- TTF / OTF are the supported generation sources in v1.0.1. WOFF can be inspected but is not used as a generation source.
 - WOFF2 input is accepted for file inspection, but its internal tables are not decoded by the app yet, so `cmap` coverage and `fsType` are shown as unavailable for WOFF2 input.
 - TTC / OTC face selection is not supported.
 - Shift_JIS source files are not auto-detected.
 - Missing characters do not block generation; they simply cannot appear in that font's output.
 - Japanese presets are practical starter sets, not complete coverage for every Japanese name, place, variant, or symbol.
 - Variable Font axis pinning is not supported; supported Variable Fonts remain variable instead.
-- Color-font formats and less common layout systems are best-effort and are not part of the v1.0.0 compatibility guarantee.
+- Color-font formats and less common layout systems are best-effort and are not part of the v1.0.1 compatibility guarantee.
 - `fsType` alone does not determine whether your license permits webfont use.
 - Large fonts and many simultaneous inputs can consume substantial browser memory. Limits are 100 MB per font, 12 fonts, and 300 MB total font data.
 - Character-source limits are 10 MB per file, 200 files, and 50 MB total source data.

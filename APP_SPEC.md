@@ -16,7 +16,9 @@ This file is the product contract for Browser Kitty's Font Subsetter.
 
 The finished app must let a user add local fonts, collect characters, inspect missing characters, create WOFF2 subsets, preview the result, and export web-ready assets without uploading the font or source text.
 
-## 3. Current implementation scope — v1.0.0
+## 3. Current implementation scope — v1.0.1
+
+v1.0.1 standardizes the header language action and tooltip while preserving the stable processing workflow.
 
 v1.0.0 is the stable release of the complete workflow built through v0.9.0. It keeps the release-candidate behavior and freezes the public contract around character collection, coverage/licensing checks, multi-font WOFF2 generation, preview, Webfont Package export, responsive UX, and fully local standalone operation:
 
@@ -168,6 +170,8 @@ The font-subset operation itself must stay HarfBuzz-based. Coverage parsing must
 ## 11. UX and accessibility
 
 - Japanese / English in one HTML file.
+- The header language button shows the target language: `EN` in Japanese and `JA` in English. Its accessible name and matching tooltip are `英語に切り替え` / `Switch to Japanese`.
+- The header version is `v` followed by the numeric `app.config.json` version (`vx.x.x`). Preserve existing responsive visibility and the `完全ローカル処理` / `Fully local processing` badge.
 - Desktop: workflow sections visible on one page.
 - Smartphone: Fonts / Characters / Output bottom navigation.
 - Coverage does not rely on color alone; counts and concrete code points are present.
@@ -203,11 +207,13 @@ The font-subset operation itself must stay HarfBuzz-based. Coverage parsing must
 - **v0.7.0 — Multi Font:** batch subset, style/weight metadata review, Variable Font regression coverage.
 - **v0.8.0 — Webfont Package:** CSS, unicode-range, WOFF2 export, ZIP, demo HTML, manifest.
 - **v0.9.0 — Release Candidate:** mobile/desktop UX, browsers, errors, memory, CSP/offline checks, README/screenshots.
-- **v1.0.0 — Stable Release:** final regression, public README, release metadata, screenshots, and publication-ready standalone artifacts. **Current.**
+- **v1.0.0 — Stable Release:** final regression, public README, release metadata, screenshots, and publication-ready standalone artifacts.
 
-## 14. v1.0.0 acceptance criteria
+- **v1.0.1 — Header consistency:** EN / JA action targets, localized accessible names and tooltips, and canonical version display. **Current.**
 
-- App/config/help/build-manifest version metadata is `1.0.0` consistently.
+## 14. v1.0.1 acceptance criteria
+
+- App/config/help/build-manifest version metadata is `1.0.1` consistently.
 - The primary TTF/OTF workflow passes automated Chromium smoke coverage from input through WOFF2 generation, browser `FontFace` reload, CSS generation, and Webfont Package ZIP export.
 - Empty/error states, source-decoding failures, Restricted / No Subsetting / Bitmap Only paths, stale-result cancellation, and large-font handling retain the v0.9.0 behavior.
 - Desktop and 360–390 px mobile layouts have no horizontal scrolling or overlapping fixed UI.
@@ -221,5 +227,5 @@ The font-subset operation itself must stay HarfBuzz-based. Coverage parsing must
 - The supplied Font Subsetter SVG remains the exact canonical source for both favicon and header icon.
 - `dist/index.self-extract.html` restores the readable HTML byte-for-byte.
 - README / README.ja follow the Browser Kitty public repository format used by `html-pdf-organizer`, with live demo, quick start, usage, Pages, build, privacy, limitations, dependencies, contributing, and license sections.
-- README, changelog, screenshots, help copy, app config, test fixtures, and generated manifests describe v1.0.0 accurately.
+- README, changelog, screenshots, help copy, app config, test fixtures, and generated manifests describe v1.0.1 accurately.
 - Firefox / WebKit / Safari and direct `file://` execution remain manual environment checks when the current CI/runtime does not provide those browser binaries or permits local-file navigation; do not claim them as automated verification.

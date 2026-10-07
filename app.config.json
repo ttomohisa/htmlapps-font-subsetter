@@ -3,7 +3,7 @@
   "name": "Font Subsetter",
   "nameJa": "フォント軽量化",
   "slug": "font-subsetter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Collect characters, check coverage and font flags, batch-subset multiple TTF/OTF fonts locally to WOFF2, then export ready-to-use CSS and a self-contained webfont ZIP package.",
   "descriptionJa": "文字を集めて文字対応とフォント内の制限を確認し、複数のTTF / OTFをWOFF2へ一括変換。生成したフォントから@font-face CSS、unicode-range、demo.html、manifest.jsonを含むWebfont ZIPを完全ローカルで作成します。",
   "defaultLanguage": "auto",
