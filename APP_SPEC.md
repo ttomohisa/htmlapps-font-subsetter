@@ -16,7 +16,7 @@ This file is the product contract for Browser Kitty's Font Subsetter.
 
 The finished app must let a user add local fonts, collect characters, inspect missing characters, create WOFF2 subsets, preview the result, and export web-ready assets without uploading the font or source text.
 
-## 3. Current implementation scope — v1.0.1
+## 3. Current implementation scope — v1.0.2
 
 v1.0.1 standardizes the header language action and tooltip while preserving the stable processing workflow.
 
@@ -209,11 +209,11 @@ The font-subset operation itself must stay HarfBuzz-based. Coverage parsing must
 - **v0.9.0 — Release Candidate:** mobile/desktop UX, browsers, errors, memory, CSP/offline checks, README/screenshots.
 - **v1.0.0 — Stable Release:** final regression, public README, release metadata, screenshots, and publication-ready standalone artifacts.
 
-- **v1.0.1 — Header consistency:** EN / JA action targets, localized accessible names and tooltips, and canonical version display. **Current.**
+- **v1.0.2 — Header consistency:** EN / JA action targets, localized accessible names and tooltips, and canonical version display. **Current.**
 
 ## 14. v1.0.1 acceptance criteria
 
-- App/config/help/build-manifest version metadata is `1.0.1` consistently.
+- App/config/help/build-manifest version metadata is `1.0.2` consistently.
 - The primary TTF/OTF workflow passes automated Chromium smoke coverage from input through WOFF2 generation, browser `FontFace` reload, CSS generation, and Webfont Package ZIP export.
 - Empty/error states, source-decoding failures, Restricted / No Subsetting / Bitmap Only paths, stale-result cancellation, and large-font handling retain the v0.9.0 behavior.
 - Desktop and 360–390 px mobile layouts have no horizontal scrolling or overlapping fixed UI.
@@ -227,5 +227,11 @@ The font-subset operation itself must stay HarfBuzz-based. Coverage parsing must
 - The supplied Font Subsetter SVG remains the exact canonical source for both favicon and header icon.
 - `dist/index.self-extract.html` restores the readable HTML byte-for-byte.
 - README / README.ja follow the Browser Kitty public repository format used by `html-pdf-organizer`, with live demo, quick start, usage, Pages, build, privacy, limitations, dependencies, contributing, and license sections.
-- README, changelog, screenshots, help copy, app config, test fixtures, and generated manifests describe v1.0.1 accurately.
+- README, changelog, screenshots, help copy, app config, test fixtures, and generated manifests describe v1.0.2 accurately.
 - Firefox / WebKit / Safari and direct `file://` execution remain manual environment checks when the current CI/runtime does not provide those browser binaries or permits local-file navigation; do not claim them as automated verification.
+
+## v1.0.2 icon consistency
+
+- The canonical icon background and matching green details use `#16624f`.
+- Background corner radii are exactly 25% of their corresponding width and height; existing bounds, padding, and foreground artwork are preserved.
+- Header, favicon, and self-extract loader inherit the canonical `assets/favicon.svg`.
