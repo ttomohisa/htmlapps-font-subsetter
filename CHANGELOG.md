@@ -2,6 +2,17 @@
 
 All notable changes to Font Subsetter / フォント軽量化 are documented here.
 
+## [1.0.3] - 2026-10-11
+
+### Fixed
+- Lock document background scrolling while Help or a native confirmation dialog is open.
+- Bound open confirmations to the viewport and keep their header visible while the message and actions scroll internally, including the existing mobile bottom sheet.
+- Preserve the existing Help allocation, dismissal handlers, local-processing shield, and all font-processing behavior; synchronize bilingual Help and version metadata.
+
+### Tests
+- Add wrapper-aware CSS contracts and real-handler regressions for confirmation results, dismissal, focus restoration, and reopening; wire them into the canonical repository check for source and both generated HTML variants alongside existing coverage, header, and icon tests.
+- Source-level checks do not replace native-browser wheel, focus, and short-viewport reachability verification.
+
 ## [1.0.2] - 2026-10-09
 
 ### Fixed

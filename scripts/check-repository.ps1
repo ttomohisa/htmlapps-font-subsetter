@@ -233,7 +233,6 @@ $buildArguments = @{}
 if ($ForceDownload) { $buildArguments.ForceDownload = $true }
 & (Join-Path $Root "build-standalone.ps1") @buildArguments
 
-Write-Host "[OK] Repository check passed." -ForegroundColor Green
 
 # WebRTC readiness DataChannel regression
 $webrtcReadyText = Get-Content -Raw -Encoding UTF8 (Join-Path $Root "components\webrtc-qr-pairing.html")
@@ -250,3 +249,30 @@ if (-not $webrtcReadyText.Contains("options.requireReadyChannelOpen!==false&&(!r
   throw "WebRTC application-ready must wait for the designated DataChannel to open."
 }
 
+
+# Check the real source and both readable/self-extract release variants after the build.
+if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
+  throw "Node.js 18 or newer is required for repository regression checks."
+}
+$previousAppHtml = $env:APP_HTML
+$previousCoverageHtml = $env:FONT_COVERAGE_HTML
+try {
+  foreach ($relative in @("src/index.template.html", "dist/index.html", "dist/index.self-extract.html")) {
+    $htmlPath = Join-Path $Root $relative
+    $env:APP_HTML = $htmlPath
+    & node --test (Join-Path $Root "tests/dialog-layout.test.cjs")
+    if ($LASTEXITCODE -ne 0) { throw "Modal layout regression tests failed: $relative" }
+    $env:FONT_COVERAGE_HTML = $htmlPath
+    & node --test (Join-Path $Root "tests/coverage-report.test.cjs")
+    if ($LASTEXITCODE -ne 0) { throw "Coverage report regression tests failed: $relative" }
+    & node (Join-Path $Root "scripts/check-header-regression.mjs") $htmlPath
+    if ($LASTEXITCODE -ne 0) { throw "Header regression tests failed: $relative" }
+  }
+  & node --test (Join-Path $Root "tests/icon-brand.test.mjs")
+  if ($LASTEXITCODE -ne 0) { throw "Canonical icon regression tests failed." }
+} finally {
+  $env:APP_HTML = $previousAppHtml
+  $env:FONT_COVERAGE_HTML = $previousCoverageHtml
+}
+
+Write-Host "[OK] Repository check passed." -ForegroundColor Green
