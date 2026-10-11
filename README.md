@@ -54,6 +54,8 @@ Python, Node.js, and a local web server are not required for the standard Window
 
 ## Usage
 
+While Help or a confirmation is open, background page scrolling is paused. On short screens, scroll inside the dialog to reach the last Help note or confirmation buttons; the header stays visible. Close, Esc, and backdrop dismissal keep their usual behavior.
+
 1. Add one or more font files. TTF / OTF are supported as generation sources; WOFF / WOFF2 can also be added for inspection.
 2. Open **Characters** and enter the text you want to keep, select presets, or add local source files.
 3. Review **Font coverage** to see missing characters for each readable font and across the loaded set.
@@ -109,6 +111,8 @@ The repository includes a workflow that builds the fully embedded HTML and deplo
 Each push to `main` rebuilds the standalone HTML, verifies repository/build constraints, uploads the release artifacts, and publishes `dist/` when GitHub Pages is enabled.
 
 ## Development and build layout
+
+Run `node --test tests/dialog-layout.test.cjs` for modal CSS contracts and real dismissal/reopen handlers. Set `APP_HTML` to a readable or self-extract HTML path to check that variant. The canonical repository check requires Node.js 18+ and runs these tests, coverage-report tests, and header tests against source and both built variants, plus the icon tests. These checks do not simulate native layout or scrolling; verify desktop/mobile and 393 × 252 short-screen behavior in a browser. The standalone build itself still does not require Node.js.
 
 Run `node scripts/check-header-regression.mjs` with Node.js to exercise the real app script for language detection, repeated toggles, saved-language reload, denied storage, version, and local-processing copy. Pass `dist/index.html` or `dist/index.self-extract.html` to check generated artifacts too. This source-level DOM-boundary test does not replace browser layout checks.
 
