@@ -76,16 +76,16 @@ test('confirmation keeps its header while its message and both actions scroll in
   assert.match(html, /<div class="app-confirm-body">\s*<p[^>]*id="appConfirmMessage"[^>]*><\/p>\s*<div class="app-confirm-actions">\s*<button[^>]*id="appConfirmCancel"[^>]*>[\s\S]*?<\/button>\s*<button[^>]*id="appConfirmOk"[^>]*>[\s\S]*?<\/button>\s*<\/div>\s*<\/div>/);
 });
 
-test('Japanese and English Help explain inner scrolling and background locking', () => {
+test('Japanese and English Help retain dismissal instructions without layout audit prose', () => {
   const dictionaries = html.match(/^    const translations=(.*);$/m)?.[1];
   assert.ok(dictionaries);
   const translations = vm.runInNewContext(`(${dictionaries})`);
   const help = html.match(/<!-- APP:HELP:BEGIN -->([\s\S]*?)<!-- APP:HELP:END -->/)?.[1];
   assert.match(help, /data-i18n="helpDialogScroll"/);
-  assert.match(translations.ja.helpDialogScroll || '', /スクロール/);
-  assert.match(translations.ja.helpDialogScroll || '', /背景/);
-  assert.match(translations.en.helpDialogScroll || '', /scroll/i);
-  assert.match(translations.en.helpDialogScroll || '', /background/i);
+  assert.match(translations.ja.helpDialogScroll || '', /閉じる.*Esc/);
+  assert.doesNotMatch(translations.ja.helpDialogScroll || '', /スクロール/);
+  assert.match(translations.en.helpDialogScroll || '', /close.*Esc/i);
+  assert.doesNotMatch(translations.en.helpDialogScroll || '', /scroll/i);
 });
 
 function harness() {
