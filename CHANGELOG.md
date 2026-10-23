@@ -2,6 +2,11 @@
 
 All notable changes to Font Subsetter / フォント軽量化 are documented here.
 
+## Unreleased
+
+### Changed
+- Move the existing build disclosure to the end of Help while preserving smartphone footer hiding, functional bottom navigation, and native keyboard disclosure activation.
+
 ## [1.0.3] - 2026-10-11
 
 ### Fixed
