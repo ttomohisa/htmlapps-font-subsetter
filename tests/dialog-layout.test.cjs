@@ -93,7 +93,7 @@ function harness() {
   class Element {
     constructor() { this.listeners = new Map(); this.isConnected = true; this.open = false; this.classList = { toggle() {} }; }
     addEventListener(type, callback) { const callbacks = this.listeners.get(type) || []; callbacks.push(callback); this.listeners.set(type, callbacks); }
-    emit(type, fields = {}) { const event = { clientX: 50, clientY: 50, prevented: false, preventDefault() { this.prevented = true; }, ...fields }; for (const callback of this.listeners.get(type) || []) callback(event); return event; }
+    emit(type, fields = {}) { const event = { target: this, clientX: 50, clientY: 50, prevented: false, preventDefault() { this.prevented = true; }, ...fields }; for (const callback of this.listeners.get(type) || []) callback(event); return event; }
     showModal() { this.open = true; }
     close() { this.open = false; this.emit('close'); }
     focus(options) { this.focusOptions = options; document.activeElement = this; }
@@ -163,4 +163,22 @@ test('canonical check gates source and both artifacts without dropping header or
   for (const file of ['build-standalone.yml', 'deploy-pages.yml']) {
     assert.match(fs.readFileSync(path.join(root, '.github/workflows', file), 'utf8'), /\.\/scripts\/check-repository\.ps1/);
   }
+});
+
+
+test('build disclosure is the final Help content, not main-page content', () => {
+  const help = html.match(/<dialog id="helpDialog">([\s\S]*?)<\/dialog>/)?.[1];
+  const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1];
+  assert.doesNotMatch(main, /class="build-details"/);
+  assert.match(help, /<details class="build-details">[\s\S]*?<\/details>\s*(?:<!-- APP:HELP:END -->\s*)?<\/div>\s*$/);
+  for (const id of ['buildVersion', 'builtAt', 'dependencyCount']) assert.equal((html.match(new RegExp(`id="${id}"`, 'g')) || []).length, 1);
+});
+
+test('keyboard activation of Help descendants never dismisses the dialog', () => {
+  const h = harness();
+  h.$('#helpButton').emit('click');
+  h.$('#helpDialog').emit('click', { target: {}, clientX: 0, clientY: 0 });
+  assert.equal(h.$('#helpDialog').open, true);
+  h.$('#helpDialog').emit('click', { clientX: 0, clientY: 0 });
+  assert.equal(h.$('#helpDialog').open, false, 'genuine backdrop still closes');
 });

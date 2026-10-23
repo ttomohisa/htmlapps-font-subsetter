@@ -241,3 +241,7 @@ The font-subset operation itself must stay HarfBuzz-based. Coverage parsing must
 - The canonical icon background and matching green details use `#16624f`.
 - Background corner radii are exactly 25% of their corresponding width and height; existing bounds, padding, and foreground artwork are preserved.
 - Header, favicon, and self-extract loader inherit the canonical `assets/favicon.svg`.
+
+## Build information in Help
+
+Keep the original localized build disclosure as the final item in the scrollable Help body, not on the main page. It remains available at desktop and smartphone widths; the informational footer stays hidden at the existing 600px breakpoint. Preserve the functional bottom navigation, keyboard disclosure activation, native dismissal, and reachable final build value on short screens.
